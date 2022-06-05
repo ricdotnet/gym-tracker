@@ -5,10 +5,11 @@ class DrawerItemComponent extends StatefulWidget {
   final String label;
   final int index;
   final bool isSelected;
-  final Function(int) callback;
+  final Function(int) setSelected;
+  final Function() navigate;
 
   const DrawerItemComponent(
-      this.label, this.index, this.isSelected, this.callback,
+      this.label, this.index, this.isSelected, this.setSelected, this.navigate,
       {Key? key})
       : super(key: key);
 
@@ -34,8 +35,8 @@ class _DrawerItemComponentState extends State<DrawerItemComponent> {
         selectedColor: Colors.blue[900],
         style: ListTileStyle.list,
         onTap: () {
-          debugPrint('Pressed ${widget.label}');
-          widget.callback(widget.index);
+          widget.setSelected(widget.index);
+          widget.navigate();
         },
       ),
     );

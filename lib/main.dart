@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gym_tracker/components/drawer_component.dart';
 import 'package:gym_tracker/pages/test_page.dart';
-import 'package:http/http.dart' as http;
+import 'package:gym_tracker/router/router.dart';
 
-void main() {
+Future<void> main() async {
+  await dotenv.load(fileName: '.env');
   runApp(const App());
 }
 
@@ -18,30 +20,27 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      onGenerateRoute: (settings) => AppRouter.navigate(settings),
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: const Text('Your personal gym tracker.'),
         ),
         endDrawer: const DrawerComponent(),
-        body: const HomeScreen(title: 'Home page content...'),
+        body: const HomeScreen(),
       ),
     );
   }
 }
 
 class HomeScreen extends StatelessWidget {
-  final String title;
-
-  const HomeScreen({Key? key, required this.title}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Text(
-          title,
-        ),
+        const Text('hello world'),
         TextButton(
             onPressed: () {
               Navigator.push(

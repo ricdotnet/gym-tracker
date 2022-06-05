@@ -17,6 +17,10 @@ class _DrawerComponentState extends State<DrawerComponent> {
     });
   }
 
+  void navigate() {
+    Navigator.pushNamed(context, '/runs');
+  }
+
   bool _isSelected(int value) {
     return _selectedDrawerItem == value;
   }
@@ -39,10 +43,11 @@ class _DrawerComponentState extends State<DrawerComponent> {
             indent: 4,
             endIndent: 4,
           ),
-          DrawerItemComponent('Menu One', 1, _isSelected(1), setSelected),
-          DrawerItemComponent('Menu Two', 2, _isSelected(2), setSelected),
-          DrawerItemComponent('Menu Three', 3, _isSelected(3), setSelected),
-          DrawerItemComponent('Menu Four', 4, _isSelected(4), setSelected),
+          DrawerItemComponent('Runs', 1, _isSelected(1), setSelected, navigate),
+          // DrawerItemComponent('Menu One', 1, _isSelected(1), setSelected),
+          // DrawerItemComponent('Menu Two', 2, _isSelected(2), setSelected),
+          // DrawerItemComponent('Menu Three', 3, _isSelected(3), setSelected),
+          // DrawerItemComponent('Menu Four', 4, _isSelected(4), setSelected),
         ],
       ),
     );
