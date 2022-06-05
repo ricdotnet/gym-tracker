@@ -17,8 +17,8 @@ class _DrawerComponentState extends State<DrawerComponent> {
     });
   }
 
-  void navigate() {
-    Navigator.pushNamed(context, '/runs');
+  void navigate(String name) {
+    Navigator.pushNamed(context, '/${name.toLowerCase()}');
   }
 
   bool _isSelected(int value) {
@@ -33,17 +33,39 @@ class _DrawerComponentState extends State<DrawerComponent> {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(16),
-            child: Text(
-              'Welcome Ricardo.',
-              style: Theme.of(context).textTheme.headline6,
+            child: Row(
+              children: <Widget>[
+                Text(
+                  'Welcome Ricardo.',
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: const Image(
+                      image: NetworkImage(
+                          'https://graph.facebook.com/10216787378497802/picture?height=256&width=256'),
+                      width: 35,
+                      height: 35,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           const Divider(
-            thickness: 2,
+            thickness: 1,
             indent: 4,
             endIndent: 4,
           ),
-          DrawerItemComponent('Runs', 1, _isSelected(1), setSelected, navigate),
+          DrawerItemComponent('Login', 1, _isSelected(1), (p0) => null, navigate),
+          const Divider(
+            thickness: 1,
+            indent: 4,
+            endIndent: 4,
+          ),
+          DrawerItemComponent('Runs', 2, _isSelected(2), setSelected, navigate),
           // DrawerItemComponent('Menu One', 1, _isSelected(1), setSelected),
           // DrawerItemComponent('Menu Two', 2, _isSelected(2), setSelected),
           // DrawerItemComponent('Menu Three', 3, _isSelected(3), setSelected),

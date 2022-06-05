@@ -1,13 +1,16 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:gym_tracker/components/drawer_component.dart';
 import 'package:gym_tracker/models/run_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class RunsPage extends StatefulWidget {
-  const RunsPage({Key? key}) : super(key: key);
+  final String bearerToken;
+
+  const RunsPage(this.bearerToken, {Key? key}) : super(key: key);
 
   @override
   State<RunsPage> createState() => _RunsPageState();
@@ -21,7 +24,7 @@ class _RunsPageState extends State<RunsPage> {
 
   Future<void> fetchRuns() async {
     final response = await http.get(Uri.parse('https://www.strava.com/api/v3/activities'),
-        headers: {'Authorization': 'Bearer ${dotenv.env['STRAVA_AUTH']}'});
+        headers: {'Authorization': 'Bearer ${widget.bearerToken}'});
 
     if (response.statusCode == 200) {
       setState(() {
@@ -51,6 +54,7 @@ class _RunsPageState extends State<RunsPage> {
       appBar: AppBar(
         title: const Text('List of Runs!'),
       ),
+      endDrawer: const DrawerComponent(),
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[

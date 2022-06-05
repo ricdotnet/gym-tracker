@@ -6,7 +6,7 @@ class DrawerItemComponent extends StatefulWidget {
   final int index;
   final bool isSelected;
   final Function(int) setSelected;
-  final Function() navigate;
+  final Function(String) navigate;
 
   const DrawerItemComponent(
       this.label, this.index, this.isSelected, this.setSelected, this.navigate,
@@ -36,7 +36,7 @@ class _DrawerItemComponentState extends State<DrawerItemComponent> {
         style: ListTileStyle.list,
         onTap: () {
           widget.setSelected(widget.index);
-          widget.navigate();
+          widget.navigate(widget.label);
         },
       ),
     );
