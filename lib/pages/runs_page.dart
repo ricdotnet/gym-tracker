@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:gym_tracker/components/drawer_component.dart';
+import 'package:gym_tracker/components/runs_error_dialog_component.dart';
 import 'package:gym_tracker/models/run_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
@@ -33,7 +35,10 @@ class _RunsPageState extends State<RunsPage> {
         // _runs = List.generate(response, (index) => null)
       });
     } else {
-      throw Exception('Could not load any runs');
+      setState(() {
+        // _isLoading = false;
+        RunsErrorDialogComponent().showDialog(context);
+      });
     }
   }
 

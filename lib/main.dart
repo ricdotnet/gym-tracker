@@ -3,9 +3,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gym_tracker/components/drawer_component.dart';
 import 'package:gym_tracker/pages/test_page.dart';
 import 'package:gym_tracker/router/router.dart';
+import 'package:gym_tracker/services/local_database_service.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: '.env');
+  await LocalDatabaseService().init();
   runApp(const App());
 }
 
