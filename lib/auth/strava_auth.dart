@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gym_tracker/pages/runs_page.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -41,11 +42,14 @@ class _StravaAuthState extends State<StravaAuth> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Authorization'),
+    return CupertinoPageScaffold(
+      navigationBar: const CupertinoNavigationBar(
+        middle: Text('Authorizing Strava'),
       ),
-      body: WebView(
+      // appBar: AppBar(
+      //   title: const Text('Authorization'),
+      // ),
+      child: WebView(
         initialUrl:
             'https://www.strava.com/oauth/authorize?client_id=${dotenv.env['STRAVA_CLIENT_ID']}&redirect_uri=https://ricr.dev&response_type=code&approval_prompt=force&scope=read_all,activity%3Aread_all',
         javascriptMode: JavascriptMode.unrestricted,

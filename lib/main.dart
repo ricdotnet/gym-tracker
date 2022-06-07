@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gym_tracker/components/drawer_component.dart';
@@ -17,45 +18,97 @@ class App extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return CupertinoApp(
       title: 'Gym Tracker',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      theme: const CupertinoThemeData(
+        barBackgroundColor: Color(0xFF383B52),
+        scaffoldBackgroundColor: Color(0xFF162030),
+        // primarySwatch: Colors.blue,
       ),
       onGenerateRoute: (settings) => AppRouter.navigate(settings),
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text('Your personal gym tracker.'),
-        ),
-        endDrawer: const DrawerComponent(),
-        body: const HomeScreen(),
-      ),
+      // home: Scaffold(
+      //   appBar: AppBar(
+      //     centerTitle: true,
+      //     title: const Text('Your personal gym tracker.'),
+      //   ),
+      //   endDrawer: const DrawerComponent(),
+      //   body: const HomeScreen(),
+      // ),
+      home: const HomeScreen(),
     );
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  bool _isDrawerOpen = false;
+
+  void _openDrawer() {
+    setState(() {
+      _isDrawerOpen = !_isDrawerOpen;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        const Text('hello world'),
-        TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return const TestPage();
-                  },
-                ),
-              );
-            },
-            child: const Text('Click Me!')),
-      ],
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: const Text(
+          'Your personam gym tracker.',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        trailing: GestureDetector(
+          onTap: () {
+            _openDrawer();
+          },
+          // child: (_isDrawerOpen) ? const Text('x') : const Text('+'),
+          child: (_isDrawerOpen)
+              ? const Icon(CupertinoIcons.xmark, color: Colors.white)
+              : const Icon(CupertinoIcons.plus, color: Colors.white),
+        ),
+      ),
+      child: Stack(
+        children: <Widget>[
+          AnimatedPositioned(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            top: (_isDrawerOpen)
+                ? MediaQuery.of(context).size.height / 2
+                : MediaQuery.of(context).size.height,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeInOut,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              decoration: const BoxDecoration(
+                color: Color(0xFF383B52),
+                borderRadius:
+                    BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+              ),
+              child: Column(
+                children: <Widget>[
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/login');
+                      },
+                      child: const Text(
+                        'Login',
+                        style: TextStyle(),
+                      )),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
