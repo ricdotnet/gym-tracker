@@ -25,7 +25,7 @@ class _MainLayoutState extends State<MainLayout> {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: const Text(
-          'Your personam gym tracker.',
+          'Your personal gym tracker.',
           style: TextStyle(
             color: Colors.white,
           ),

@@ -43,32 +43,24 @@ class _StravaAuthState extends State<StravaAuth> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(
-        middle: Text('Authorizing Strava'),
-      ),
-      // appBar: AppBar(
-      //   title: const Text('Authorization'),
-      // ),
-      child: WebView(
-        initialUrl:
-            'https://www.strava.com/oauth/authorize?client_id=${dotenv.env['STRAVA_CLIENT_ID']}&redirect_uri=https://ricr.dev&response_type=code&approval_prompt=force&scope=read_all,activity%3Aread_all',
-        javascriptMode: JavascriptMode.unrestricted,
-        onPageFinished: (_) async {
-          Uri callbackUri = Uri.parse(_);
-          if (callbackUri.queryParameters.containsKey('code')) {
-            String? authCode = callbackUri.queryParameters['code'];
-            await genBearerToken(authCode!).then((_) => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return MainLayout(screen: RunsPage(bearerToken));
-                    },
-                  ),
-                ));
-          }
-        },
-      ),
+    return WebView(
+      initialUrl:
+          'https://www.strava.com/oauth/authorize?client_id=${dotenv.env['STRAVA_CLIENT_ID']}&redirect_uri=https://ricr.dev&response_type=code&approval_prompt=force&scope=read_all,activity%3Aread_all',
+      javascriptMode: JavascriptMode.unrestricted,
+      onPageFinished: (_) async {
+        Uri callbackUri = Uri.parse(_);
+        if (callbackUri.queryParameters.containsKey('code')) {
+          String? authCode = callbackUri.queryParameters['code'];
+          await genBearerToken(authCode!).then((_) => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return MainLayout(screen: RunsPage(bearerToken));
+                  },
+                ),
+              ));
+        }
+      },
     );
   }
 }

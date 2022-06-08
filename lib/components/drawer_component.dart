@@ -3,6 +3,7 @@ import 'package:gym_tracker/components/drawer_item_component.dart';
 
 class DrawerComponent extends StatefulWidget {
   final bool isOpen;
+
   const DrawerComponent({Key? key, required this.isOpen}) : super(key: key);
 
   @override
@@ -56,7 +57,7 @@ class _DrawerComponentState extends State<DrawerComponent> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           top: (isOpen)
-              ? MediaQuery.of(context).size.height * 0.2
+              ? MediaQuery.of(context).size.height * 0.05
               : MediaQuery.of(context).size.height,
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOut,
@@ -67,27 +68,34 @@ class _DrawerComponentState extends State<DrawerComponent> {
               color: Color(0xFF383B52),
               borderRadius:
                   BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 20,
+                ),
+              ],
             ),
             child: Column(
               children: <Widget>[
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/login');
-                  },
-                  child: const Text(
-                    'Login',
-                    style: TextStyle(),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/runs');
-                  },
-                  child: const Text(
-                    'Runs',
-                    style: TextStyle(),
-                  ),
-                ),
+                DrawerItemComponent('Login', 1, _isSelected(1), setSelected, navigate),
+                DrawerItemComponent('Runs', 2, _isSelected(2), setSelected, navigate),
+                // TextButton(
+                //   onPressed: () {
+                //     Navigator.pushNamed(context, '/login');
+                //   },
+                //   child: const Text(
+                //     'Login',
+                //     style: TextStyle(),
+                //   ),
+                // ),
+                // TextButton(
+                //   onPressed: () {
+                //     Navigator.pushNamed(context, '/runs');
+                //   },
+                //   child: const Text(
+                //     'Runs',
+                //     style: TextStyle(),
+                //   ),
+                // ),
               ],
             ),
           ),
