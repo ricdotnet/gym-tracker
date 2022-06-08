@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gym_tracker/layouts/main_layout.dart';
 import 'package:gym_tracker/pages/runs_page.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -61,7 +62,7 @@ class _StravaAuthState extends State<StravaAuth> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return RunsPage(bearerToken);
+                      return MainLayout(screen: RunsPage(bearerToken));
                     },
                   ),
                 ));

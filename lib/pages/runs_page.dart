@@ -56,10 +56,10 @@ class _RunsPageState extends State<RunsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('List of Runs!'),
-      ),
-      endDrawer: const DrawerComponent(),
+      // appBar: AppBar(
+      //   title: const Text('List of Runs!'),
+      // ),
+      // endDrawer: const DrawerComponent(),
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[

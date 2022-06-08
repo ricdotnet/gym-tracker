@@ -10,7 +10,7 @@ class FourOFourPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Ooops...'),
       ),
-      endDrawer: const DrawerComponent(),
+      // endDrawer: DrawerComponent(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
